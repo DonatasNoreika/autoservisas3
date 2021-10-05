@@ -9,6 +9,7 @@ class OrderLineInline(admin.TabularInline):
 
 class OrderAdmin(admin.ModelAdmin):
     inlines = [OrderLineInline]
+    list_display = ('car', 'due_date')
 
 admin.site.register(Service)
 admin.site.register(CarModel)
