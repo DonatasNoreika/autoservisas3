@@ -47,6 +47,20 @@ class Order(models.Model):
     car = models.ForeignKey('Car', verbose_name="Car", on_delete=models.SET_NULL, null=True)
     due_date = models.DateTimeField(verbose_name='Due Date', null=True, blank=True)
 
+    STATUS = (
+        ('p', 'Patvirtinta'),
+        ('v', 'Vykdoma'),
+        ('a', 'Atlikta'),
+        ('t', 'Atšaukta'),
+    )
+
+    status = models.CharField(
+        max_length=1,
+        choices=STATUS,
+        blank=True,
+        default='p',
+        help_text='Status',
+    )
 
     def __str__(self):
         return f"{self.car}: {self.car.owner}, {self.due_date}"
