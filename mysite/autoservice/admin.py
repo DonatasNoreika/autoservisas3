@@ -14,7 +14,10 @@ class OrderAdmin(admin.ModelAdmin):
 class CarAdmin(admin.ModelAdmin):
     list_display = ('owner', 'car_model', 'licence_plate', 'vin_code')
 
-admin.site.register(Service)
+class ServiceAdmin(admin.ModelAdmin):
+    list_display = ('name', 'price')
+
+admin.site.register(Service, ServiceAdmin)
 admin.site.register(CarModel)
 admin.site.register(Car, CarAdmin)
 admin.site.register(Order, OrderAdmin)
