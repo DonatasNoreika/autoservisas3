@@ -13,6 +13,8 @@ class OrderAdmin(admin.ModelAdmin):
 
 class CarAdmin(admin.ModelAdmin):
     list_display = ('owner', 'car_model', 'licence_plate', 'vin_code')
+    list_filter = ('owner', 'car_model')
+
 
 class ServiceAdmin(admin.ModelAdmin):
     list_display = ('name', 'price')
