@@ -46,3 +46,15 @@ class OrderListView(generic.ListView):
 class OrderDetailView(generic.DetailView):
     model = Order
     template_name = 'order.html'
+
+
+def search(request):
+    """
+    paprasta paieška. query ima informaciją iš paieškos laukelio,
+    search_results prafiltruoja pagal įvestą tekstą knygų pavadinimus ir aprašymus.
+    Icontains nuo contains skiriasi tuo, kad icontains ignoruoja ar raidės
+    didžiosios/mažosios.
+    """
+    query = request.GET.get('query')
+    search_results = Car.objects.filter(Q(owner__icontains=query) | Q(licence_plate__icontains=query) | Q(vin_code__icontains=query) | Q(car_model__manufacturer__icontains=query) | Q(car_model__model__icontains=query))
+    return render(request, 'search.html', {'cars': search_results, 'query': query})
