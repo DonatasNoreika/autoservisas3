@@ -128,7 +128,7 @@ DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 
 
 # media folder settings
-MEDIA_ROOT = os.path.join(BASE_DIR, 'library/media')
+MEDIA_ROOT = os.path.join(BASE_DIR, 'autoservice/media')
 
 MEDIA_URL = '/media/'
 # print(MEDIA_ROOT) - nevenkite padebuginti, bus lengviau nepasiklysti django filesystem džiunglėse
