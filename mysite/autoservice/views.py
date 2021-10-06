@@ -2,6 +2,8 @@ from django.shortcuts import render, get_object_or_404
 from django.urls import path
 from .models import Car, Service, Order
 from django.views import generic
+from django.core.paginator import Paginator
+from django.db.models import Q
 
 def index(request):
     paslaugu_kiekis = Service.objects.count()
@@ -19,15 +21,17 @@ def index(request):
     return render(request, 'index.html', context=context)
 
 
-def authors(request):
-    cars = Car.objects.all()
+def cars(request):
+    paginator = Paginator(Car.objects.all(), 5)
+    page_number = request.GET.get('page')
+    paged_cars = paginator.get_page(page_number)
     context = {
-        'cars': cars
+        'cars': paged_cars
     }
     return render(request, 'cars.html', context=context)
 
 
-def author(request, car_id):
+def car(request, car_id):
     single_car = get_object_or_404(Car, pk=car_id)
     return render(request, 'car.html', {'car': single_car})
 
@@ -36,6 +40,7 @@ def author(request, car_id):
 class OrderListView(generic.ListView):
     model = Order
     template_name = 'orders.html'
+    paginate_by = 5
 
 
 class OrderDetailView(generic.DetailView):
