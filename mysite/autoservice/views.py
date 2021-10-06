@@ -1,4 +1,4 @@
-from django.shortcuts import render
+from django.shortcuts import render, get_object_or_404
 
 # Create your views here.
 
@@ -19,3 +19,16 @@ def index(request):
 
     # renderiname base.html, su duomenimis kintamąjame context
     return render(request, 'index.html', context=context)
+
+
+def authors(request):
+    cars = Car.objects.all()
+    context = {
+        'cars': cars
+    }
+    return render(request, 'cars.html', context=context)
+
+
+def author(request, car_id):
+    single_car = get_object_or_404(Car, pk=car_id)
+    return render(request, 'car.html', {'car': single_car})
