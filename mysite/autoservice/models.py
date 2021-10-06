@@ -34,6 +34,8 @@ class Car(models.Model):
     car_model = models.ForeignKey('CarModel', verbose_name="Model", on_delete=models.SET_NULL, null=True)
     licence_plate = models.CharField(verbose_name='Licence plate', max_length=200)
     vin_code = models.CharField(verbose_name='VIN code', max_length=200)
+    photo = models.ImageField('Photo', upload_to='covers', null=True)
+
 
     def __str__(self):
         return f"{self.owner}: {self.car_model}, {self.licence_plate}, {self.vin_code}"
