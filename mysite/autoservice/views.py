@@ -1,9 +1,7 @@
 from django.shortcuts import render, get_object_or_404
-
-# Create your views here.
-
 from django.urls import path
 from .models import Car, Service, Order
+from django.views import generic
 
 def index(request):
     paslaugu_kiekis = Service.objects.count()
@@ -32,3 +30,14 @@ def authors(request):
 def author(request, car_id):
     single_car = get_object_or_404(Car, pk=car_id)
     return render(request, 'car.html', {'car': single_car})
+
+
+
+class OrderListView(generic.ListView):
+    model = Order
+    template_name = 'orders.html'
+
+
+class OrderDetailView(generic.DetailView):
+    model = Order
+    template_name = 'order.html'
