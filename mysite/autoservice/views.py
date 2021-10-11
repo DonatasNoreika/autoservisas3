@@ -4,6 +4,7 @@ from .models import Car, Service, Order
 from django.views import generic
 from django.core.paginator import Paginator
 from django.db.models import Q
+from django.contrib.auth.mixins import LoginRequiredMixin
 
 def index(request):
     paslaugu_kiekis = Service.objects.count()
@@ -45,6 +46,14 @@ class OrderListView(generic.ListView):
     model = Order
     template_name = 'orders.html'
     paginate_by = 5
+
+class UserOrderListView(LoginRequiredMixin, generic.ListView):
+    model = Order
+    template_name = 'user_orders.html'
+    paginate_by = 10
+
+    def get_queryset(self):
+        return Order.objects.filter(user=self.request.user).order_by('due_date')
 
 
 class OrderDetailView(generic.DetailView):
