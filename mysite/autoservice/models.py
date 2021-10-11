@@ -3,7 +3,10 @@ from django.db import models
 # Create your models here.
 from django.urls import reverse
 from django.contrib.auth.models import User
-from datetime import date
+from datetime import datetime
+
+import pytz
+utc=pytz.UTC
 
 class Service(models.Model):
     name = models.CharField(verbose_name='Name', max_length=200)
@@ -53,7 +56,7 @@ class Order(models.Model):
 
     @property
     def is_overdue(self):
-        if self.due_date and date.today() > self.due_date:
+        if self.due_date and datetime.today().replace(tzinfo=utc) > self.due_date.replace(tzinfo=utc):
             return True
         return False
 
