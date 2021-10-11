@@ -10,5 +10,6 @@ urlpatterns = [
     path('order/<int:pk>', views.OrderDetailView.as_view(), name='order-detail'),
     path('search/', views.search, name='search'),
     path('accounts/', include('django.contrib.auth.urls')),
+    path('register/', views.register, name='register'),
     path('user_order/', views.UserOrderListView.as_view(), name='user-orders'),
 ]
