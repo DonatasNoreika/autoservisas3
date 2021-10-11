@@ -111,3 +111,14 @@ class OrderLine(models.Model):
 
     def __str__(self):
         return f"{self.order}: {self.service}, {self.qty}"
+
+
+class OrderComment(models.Model):
+    order = models.ForeignKey('Order', verbose_name="Order", on_delete=models.SET_NULL, null=True, related_name='comments')
+    user = models.ForeignKey(User, on_delete=models.SET_NULL, null=True, blank=True)
+    date_created = models.DateTimeField(auto_now_add=True)
+    comment = models.TextField('Comment', max_length=2000)
+
+    class Meta:
+        verbose_name = 'Comment'
+        verbose_name_plural = 'Comments'
