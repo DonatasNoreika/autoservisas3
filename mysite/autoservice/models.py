@@ -4,6 +4,8 @@ from django.db import models
 from django.urls import reverse
 from django.contrib.auth.models import User
 from datetime import datetime
+from tinymce.models import HTMLField
+
 
 import pytz
 utc=pytz.UTC
@@ -39,6 +41,7 @@ class Car(models.Model):
     licence_plate = models.CharField(verbose_name='Licence plate', max_length=200)
     vin_code = models.CharField(verbose_name='VIN code', max_length=200)
     photo = models.ImageField('Photo', upload_to='covers', null=True)
+    description = HTMLField('Aprašymas', null=True)
 
 
     def __str__(self):

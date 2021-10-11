@@ -12,5 +12,6 @@
         <h1><strong>Car Model: </strong>{{ car.car_model }} ({{ car.year }})</h1>
         <h4><strong>Licence plate: </strong>{{ car.licence_plate }}</h4>
         <h4><strong>VIN code: </strong>{{ car.vin_code }}</h4>
+        <p>{{ car.description | safe }}</p>
     </div>
 {% endblock %}
