@@ -9,7 +9,7 @@ class OrderLineInline(admin.TabularInline):
 
 class OrderAdmin(admin.ModelAdmin):
     inlines = [OrderLineInline]
-    list_display = ('car', 'due_date')
+    list_display = ('car', 'due_date', 'is_overdue')
 
 class CarAdmin(admin.ModelAdmin):
     list_display = ('owner', 'car_model', 'licence_plate', 'vin_code')
