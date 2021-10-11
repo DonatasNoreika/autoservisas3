@@ -53,7 +53,7 @@ class Order(models.Model):
 
     @property
     def is_overdue(self):
-        if self.due_back and date.today() > self.due_back:
+        if self.due_date and date.today() > self.due_date:
             return True
         return False
 
