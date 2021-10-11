@@ -63,6 +63,15 @@ class Order(models.Model):
             return True
         return False
 
+
+    @property
+    def total(self):
+        uzsakymo_eilutes = OrderLine.objects.filter(order=self.id)
+        suma = 0
+        for eilute in uzsakymo_eilutes:
+            suma += eilute.service.price * eilute.qty
+        return suma
+
     STATUS = (
         ('p', 'Patvirtinta'),
         ('v', 'Vykdoma'),
@@ -90,6 +99,10 @@ class OrderLine(models.Model):
     order = models.ForeignKey('Order', verbose_name="Order", on_delete=models.SET_NULL, null=True, related_name='lines')
     service = models.ForeignKey('Service', verbose_name="Service", on_delete=models.SET_NULL, null=True)
     qty = models.IntegerField("Quantity")
+
+    @property
+    def suma(self):
+        return self.service.price * self.qty
 
 
     class Meta:

@@ -10,7 +10,11 @@
     <h4>Services:</h4>
     {% for orderline in order.lines.all %}
       <hr>
-      <p class="text-muted"><strong> Service: {{ orderline.service }}</strong> - {{orderline.qty}} </p>
+      <p class="text-muted"><strong> Service: {{ orderline.service }} ({{ orderline.service.price }}) </strong> - {{orderline.qty}}, SUM: {{orderline.suma}}</p>
     {% endfor %}
   </div>
+    <hr>
+    <p>
+        TOTAL: {{ order.total }}
+    </p>
 {% endblock %}
