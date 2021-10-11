@@ -2,7 +2,7 @@ from django.db import models
 
 # Create your models here.
 from django.urls import reverse
-
+from django.contrib.auth.models import User
 
 class Service(models.Model):
     name = models.CharField(verbose_name='Name', max_length=200)
@@ -48,6 +48,7 @@ class Car(models.Model):
 class Order(models.Model):
     car = models.ForeignKey('Car', verbose_name="Car", on_delete=models.SET_NULL, null=True)
     due_date = models.DateTimeField(verbose_name='Due Date', null=True, blank=True)
+    user = models.ForeignKey(User, on_delete=models.SET_NULL, null=True, blank=True)
 
     STATUS = (
         ('p', 'Patvirtinta'),
