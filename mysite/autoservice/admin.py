@@ -1,7 +1,7 @@
 from django.contrib import admin
 
 # Register your models here.
-from .models import Service, CarModel, Car, Order, OrderLine
+from .models import Service, CarModel, Car, Order, OrderLine, Profilis
 
 class OrderLineInline(admin.TabularInline):
     model = OrderLine
@@ -20,6 +20,7 @@ class CarAdmin(admin.ModelAdmin):
 class ServiceAdmin(admin.ModelAdmin):
     list_display = ('name', 'price')
 
+admin.site.register(Profilis)
 admin.site.register(Service, ServiceAdmin)
 admin.site.register(CarModel)
 admin.site.register(Car, CarAdmin)

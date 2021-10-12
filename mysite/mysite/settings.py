@@ -42,7 +42,7 @@ ALLOWED_HOSTS = []
 # Application definition
 
 INSTALLED_APPS = [
-    'autoservice',
+    'autoservice.apps.AutoserviceConfig',
     'tinymce',
     'django.contrib.admin',
     'django.contrib.auth',

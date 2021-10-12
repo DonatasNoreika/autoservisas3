@@ -10,6 +10,7 @@ from django.contrib import messages
 from django.contrib.auth.forms import User
 from django.views.generic.edit import FormMixin
 from .forms import OrderCommentForm
+from django.contrib.auth.decorators import login_required
 
 def index(request):
     paslaugu_kiekis = Service.objects.count()
@@ -68,7 +69,7 @@ class UserOrderListView(FormMixin, LoginRequiredMixin, generic.ListView):
     # įtraukiame formą į kontekstą, inicijuojame pradinę 'book' reikšmę.
     def get_context_data(self, *args, **kwargs):
         context = super(UserOrderListView, self).get_context_data(**kwargs)
-        context['form'] = OrderCommentForm()
+        context['form'] = OrderCommentForm(initial={'order': self.object})
         return context
 
     # standartinis post metodo perrašymas, naudojant FormMixin, galite kopijuoti tiesiai į savo projektą.
@@ -132,3 +133,8 @@ def register(request):
             messages.error(request, 'Slaptažodžiai nesutampa!')
             return redirect('register')
     return render(request, 'register.html')
+
+
+@login_required
+def profilis(request):
+    return render(request, 'profilis.html')
