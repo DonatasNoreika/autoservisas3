@@ -21,14 +21,14 @@
 
 </br>
   <h4>Comments:</h4>
-  {% if order.comments.all %}
+  {% if order.comments %}
     {% for comment in order.comments.all %}
       <hr>
       <strong>{{ comment.user }}</strong>, <em>{{ comment.date_created}}</em>
       <p>{{ comment.comment }}</p>
     {% endfor %}
   {% else %}
-    <p>Knyga neturi atsiliepimų</p>
+    <p>Nėra komentarų</p>
   {% endif %}
 
   {% if user.is_authenticated %}

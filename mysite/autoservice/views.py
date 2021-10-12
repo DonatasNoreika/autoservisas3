@@ -53,11 +53,10 @@ class OrderListView(generic.ListView):
     template_name = 'orders.html'
     paginate_by = 5
 
-class UserOrderListView(FormMixin, LoginRequiredMixin, generic.ListView):
+class UserOrderListView(LoginRequiredMixin, generic.ListView):
     model = Order
     template_name = 'user_orders.html'
     paginate_by = 10
-    form_class = OrderCommentForm
 
     def get_queryset(self):
         return Order.objects.filter(user=self.request.user).order_by('due_date')
@@ -66,10 +65,16 @@ class UserOrderListView(FormMixin, LoginRequiredMixin, generic.ListView):
     def get_success_url(self):
         return reverse('order-detail', kwargs={'pk': self.object.id})
 
+
+class OrderDetailView(LoginRequiredMixin, FormMixin, generic.DetailView):
+    model = Order
+    template_name = 'order.html'
+    form_class = OrderCommentForm
+
     # įtraukiame formą į kontekstą, inicijuojame pradinę 'book' reikšmę.
     def get_context_data(self, *args, **kwargs):
-        context = super(UserOrderListView, self).get_context_data(**kwargs)
-        context['form'] = OrderCommentForm(initial={'order': self.object})
+        context = super(OrderDetailView, self).get_context_data(**kwargs)
+        context['form'] = OrderCommentForm()
         return context
 
     # standartinis post metodo perrašymas, naudojant FormMixin, galite kopijuoti tiesiai į savo projektą.
@@ -85,14 +90,7 @@ class UserOrderListView(FormMixin, LoginRequiredMixin, generic.ListView):
         form.instance.order = self.object
         form.instance.user = self.request.user
         form.save()
-        return super(UserOrderListView, self).form_valid(form)
-
-
-
-
-class OrderDetailView(generic.DetailView):
-    model = Order
-    template_name = 'order.html'
+        return super(OrderDetailView, self).form_valid(form)
 
 
 def search(request):
