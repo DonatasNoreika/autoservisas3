@@ -5,6 +5,7 @@
   {% if order_list %}
   <ul>
     {% for order in order_list %}
+    <img class="rounded-circle" src="{{order.user.profilis.nuotrauka.url}}">
       <li>
         <a href="{{ order.id }}">{{ order.car }}</a>
       </li>
