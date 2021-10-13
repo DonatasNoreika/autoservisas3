@@ -62,19 +62,18 @@ class UserOrderListView(LoginRequiredMixin, generic.ListView):
         return Order.objects.filter(user=self.request.user).order_by('due_date')
 
 
-    def get_success_url(self):
-        return reverse('order-detail', kwargs={'pk': self.object.id})
-
-
-class OrderDetailView(LoginRequiredMixin, FormMixin, generic.DetailView):
+class OrderDetailView(FormMixin, generic.DetailView):
     model = Order
     template_name = 'order.html'
     form_class = OrderCommentForm
 
+    def get_success_url(self):
+        return reverse('order-detail', kwargs={'pk': self.object.id})
+
     # įtraukiame formą į kontekstą, inicijuojame pradinę 'book' reikšmę.
     def get_context_data(self, *args, **kwargs):
         context = super(OrderDetailView, self).get_context_data(**kwargs)
-        context['form'] = OrderCommentForm()
+        context['form'] = OrderCommentForm(initial={'order': self.object})
         return context
 
     # standartinis post metodo perrašymas, naudojant FormMixin, galite kopijuoti tiesiai į savo projektą.
