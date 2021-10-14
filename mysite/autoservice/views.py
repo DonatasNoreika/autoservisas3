@@ -91,6 +91,20 @@ class OrderDetailView(FormMixin, generic.DetailView):
         form.save()
         return super(OrderDetailView, self).form_valid(form)
 
+class OrderByUserCreateView(LoginRequiredMixin, generic.CreateView):
+    model = Order
+    fields = ['car', 'due_date']
+    success_url = "/autoservice/user_order/"
+    template_name = 'user_order_form.html'
+
+    def get_success_url(self):
+        return reverse('order-detail', kwargs={'pk': self.object.id})
+
+    def form_valid(self, form):
+        form.instance.user = self.request.user
+        form.save()
+        return super().form_valid(form)
+
 
 def search(request):
     """

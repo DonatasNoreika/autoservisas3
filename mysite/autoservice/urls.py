@@ -7,10 +7,11 @@ urlpatterns = [
     path('cars/', views.cars, name="cars"),
     path('car/<int:car_id>', views.car, name='car'),
     path('order/', views.OrderListView.as_view(), name='orders'),
-    path('order/<int:pk>', views.OrderDetailView.as_view(), name='order-detail'),
     path('search/', views.search, name='search'),
     path('accounts/', include('django.contrib.auth.urls')),
     path('register/', views.register, name='register'),
-    path('user_order/', views.UserOrderListView.as_view(), name='user-orders'),
     path('profilis/', views.profilis, name='profilis'),
+    path('user_order/', views.UserOrderListView.as_view(), name='user-orders'),
+    path('order/<int:pk>', views.OrderDetailView.as_view(), name='order-detail'),
+    path('order/new', views.OrderByUserCreateView.as_view(), name='user-order-new'),
 ]
