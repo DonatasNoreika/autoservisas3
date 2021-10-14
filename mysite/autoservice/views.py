@@ -11,6 +11,7 @@ from django.contrib.auth.forms import User
 from django.views.generic.edit import FormMixin
 from .forms import OrderCommentForm, UserUpdateForm, ProfilisUpdateForm
 from django.contrib.auth.decorators import login_required
+from django.contrib.auth.mixins import UserPassesTestMixin
 
 def index(request):
     paslaugu_kiekis = Service.objects.count()
@@ -104,6 +105,23 @@ class OrderByUserCreateView(LoginRequiredMixin, generic.CreateView):
         form.instance.user = self.request.user
         form.save()
         return super().form_valid(form)
+
+
+class OrderByUserUpdateView(LoginRequiredMixin, UserPassesTestMixin, generic.UpdateView):
+    model = Order
+    fields = ['car', 'due_date']
+    template_name = 'user_order_form.html'
+
+    def get_success_url(self):
+        return reverse('order-detail', kwargs={'pk': self.object.id})
+
+    def form_valid(self, form):
+        form.instance.user = self.request.user
+        return super().form_valid(form)
+
+    def test_func(self):
+        order = self.get_object()
+        return self.request.user == order.user
 
 
 def search(request):
