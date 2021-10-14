@@ -22,9 +22,7 @@
 {% if object.user == user %}
 <div>
     <a class="btn btn-secondary btn-sm mt-1 mb-1" href="{% url 'user-order-update' object.id %}">Redaguoti</a>
-{% comment 'comment_name' %}
-    <a class="btn btn-danger btn-sm mt-1 mb-1" href="{% url 'my-book-delete' object.id %}">Ištrinti</a>
-{% endcomment %}
+    <a class="btn btn-danger btn-sm mt-1 mb-1" href="{% url 'user-order-delete' object.id %}">Ištrinti</a>
 </div>
 {% endif %}
 

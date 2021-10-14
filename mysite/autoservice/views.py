@@ -124,6 +124,16 @@ class OrderByUserUpdateView(LoginRequiredMixin, UserPassesTestMixin, generic.Upd
         return self.request.user == order.user
 
 
+class OrderByUserDeleteView(LoginRequiredMixin, UserPassesTestMixin, generic.DeleteView):
+    model = Order
+    success_url = "/autoservice/user_order/"
+    template_name = 'user_order_delete.html'
+
+    def test_func(self):
+        order = self.get_object()
+        return self.request.user == order.user
+
+
 def search(request):
     """
     paprasta paieška. query ima informaciją iš paieškos laukelio,
