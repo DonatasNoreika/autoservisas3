@@ -71,10 +71,10 @@ class OrderDetailView(FormMixin, generic.DetailView):
         return reverse('order-detail', kwargs={'pk': self.object.id})
 
     # įtraukiame formą į kontekstą, inicijuojame pradinę 'book' reikšmę.
-    def get_context_data(self, *args, **kwargs):
-        context = super(OrderDetailView, self).get_context_data(**kwargs)
-        context['form'] = OrderCommentForm(initial={'order': self.object})
-        return context
+    # def get_context_data(self, *args, **kwargs):
+    #     context = super(OrderDetailView, self).get_context_data(**kwargs)
+    #     context['form'] = OrderCommentForm(initial={'order': self.object})
+    #     return context
 
     # standartinis post metodo perrašymas, naudojant FormMixin, galite kopijuoti tiesiai į savo projektą.
     def post(self, request, *args, **kwargs):
@@ -132,9 +132,9 @@ def register(request):
     return render(request, 'register.html')
 
 
-@login_required
-def profilis(request):
-    return render(request, 'profilis.html')
+# @login_required
+# def profilis(request):
+#     return render(request, 'profilis.html')
 
 
 @login_required
