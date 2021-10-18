@@ -1,6 +1,6 @@
 from django.shortcuts import render, get_object_or_404, redirect, reverse
 from django.urls import path
-from .models import Car, Service, Order
+from .models import Car, Service, Order, OrderLine
 from django.views import generic
 from django.core.paginator import Paginator
 from django.db.models import Q
@@ -103,6 +103,20 @@ class OrderByUserCreateView(LoginRequiredMixin, generic.CreateView):
 
     def form_valid(self, form):
         form.instance.user = self.request.user
+        form.save()
+        return super().form_valid(form)
+
+
+class OrderLineByUserCreateView(LoginRequiredMixin, generic.CreateView):
+    model = OrderLine
+    fields = ['service', 'qty']
+    template_name = 'userline_form.html'
+
+    def get_success_url(self):
+        return reverse('order-detail', kwargs={'pk': self.kwargs['pk']})
+
+    def form_valid(self, form):
+        form.instance.order = Order.objects.get(pk=self.kwargs['pk'])
         form.save()
         return super().form_valid(form)
 
