@@ -95,7 +95,7 @@ class OrderDetailView(FormMixin, generic.DetailView):
 class OrderByUserCreateView(LoginRequiredMixin, generic.CreateView):
     model = Order
     fields = ['car', 'due_date']
-    success_url = "/autoservice/user_order/"
+    # success_url = "/autoservice/user_order/"
     template_name = 'user_order_form.html'
 
     def get_success_url(self):

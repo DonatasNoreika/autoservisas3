@@ -8,6 +8,6 @@
     <li><strong>{% trans "Services:" %}</strong> {{ paslaugu_kiekis }}</li>
     <li><strong>{% trans "Orders done:" %}</strong> {{ atliktu_uzsakymu_kiekis }}</li>
     <li><strong>{% trans "Vehicles:" %}</strong> {{ automobiliu_kiekis }}</li>
-    <p>Čia jūs lankotes {{ num_visits }}-ą kartą.</p>
+    <p>{% blocktrans %}Your visits in this site: {{ num_visits }}.{% endblocktrans %}</p>
   </ul>
 {% endblock %}

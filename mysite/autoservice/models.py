@@ -6,7 +6,7 @@ from django.contrib.auth.models import User
 from datetime import datetime
 from tinymce.models import HTMLField
 from PIL import Image
-
+from django.utils.translation import gettext_lazy as _
 
 import pytz
 utc=pytz.UTC
@@ -54,9 +54,9 @@ class Car(models.Model):
 
 
 class Order(models.Model):
-    car = models.ForeignKey('Car', verbose_name="Car", on_delete=models.SET_NULL, null=True)
-    due_date = models.DateTimeField(verbose_name='Due Date', null=True, blank=True)
-    user = models.ForeignKey(User, on_delete=models.SET_NULL, null=True, blank=True)
+    car = models.ForeignKey('Car', verbose_name=_("Car"), on_delete=models.SET_NULL, null=True)
+    due_date = models.DateTimeField(verbose_name=_('Due Date'), null=True, blank=True)
+    user = models.ForeignKey(User, verbose_name=_("User"), on_delete=models.SET_NULL, null=True, blank=True)
 
     @property
     def is_overdue(self):
@@ -74,10 +74,10 @@ class Order(models.Model):
         return suma
 
     STATUS = (
-        ('p', 'Patvirtinta'),
-        ('v', 'Vykdoma'),
-        ('a', 'Atlikta'),
-        ('t', 'Atšaukta'),
+        ('p', _('Approved')),
+        ('v', _('In Progress')),
+        ('a', _('Done')),
+        ('t', _('Canceled')),
     )
 
     status = models.CharField(
@@ -85,21 +85,21 @@ class Order(models.Model):
         choices=STATUS,
         blank=True,
         default='p',
-        help_text='Status',
+        help_text=_('Status'),
     )
 
     def __str__(self):
         return f"{self.car}: {self.car.owner}, {self.due_date}"
 
     class Meta:
-        verbose_name = 'Order'
-        verbose_name_plural = 'Orders'
+        verbose_name = _('Order')
+        verbose_name_plural = _('Orders')
 
 
 class OrderLine(models.Model):
-    order = models.ForeignKey('Order', verbose_name="Order", on_delete=models.SET_NULL, null=True, related_name='lines')
-    service = models.ForeignKey('Service', verbose_name="Service", on_delete=models.SET_NULL, null=True)
-    qty = models.IntegerField("Quantity")
+    order = models.ForeignKey('Order', verbose_name=_("Order"), on_delete=models.SET_NULL, null=True, related_name='lines')
+    service = models.ForeignKey('Service', verbose_name=_("Service"), on_delete=models.SET_NULL, null=True)
+    qty = models.IntegerField(verbose_name=_("Quantity"))
 
     @property
     def suma(self):
@@ -107,22 +107,22 @@ class OrderLine(models.Model):
 
 
     class Meta:
-        verbose_name = 'Order Line'
-        verbose_name_plural = 'Order Lines'
+        verbose_name = _('Order Line')
+        verbose_name_plural = _('Order Lines')
 
     def __str__(self):
         return f"{self.order}: {self.service}, {self.qty}"
 
 
 class OrderComment(models.Model):
-    order = models.ForeignKey('Order', verbose_name="Order", on_delete=models.SET_NULL, null=True, blank=True, related_name='comments')
-    user = models.ForeignKey(User, on_delete=models.SET_NULL, null=True, blank=True)
-    date_created = models.DateTimeField(auto_now_add=True)
-    comment = models.TextField('Comment', max_length=2000)
+    order = models.ForeignKey('Order', verbose_name=_("Order"), on_delete=models.SET_NULL, null=True, blank=True, related_name='comments')
+    user = models.ForeignKey(User, verbose_name=_("User"), on_delete=models.SET_NULL, null=True, blank=True)
+    date_created = models.DateTimeField(verbose_name=_("Date created"), auto_now_add=True)
+    comment = models.TextField(verbose_name=_('Comment'), max_length=2000)
 
     class Meta:
-        verbose_name = 'Comment'
-        verbose_name_plural = 'Comments'
+        verbose_name = _('Comment')
+        verbose_name_plural = _('Comments')
 
 
 class Profilis(models.Model):

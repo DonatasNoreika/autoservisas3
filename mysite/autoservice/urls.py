@@ -3,6 +3,7 @@ from django.urls import path, include
 from . import views
 
 urlpatterns = [
+    path('i18n/', include('django.conf.urls.i18n')),
     path('', views.index, name='index'),
     path('cars/', views.cars, name="cars"),
     path('car/<int:car_id>', views.car, name='car'),
