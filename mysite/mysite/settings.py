@@ -18,15 +18,15 @@ import os
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
 
-from .secret_settings import SECRET_EMAIL_HOST_USER, SECRET_EMAIL_HOST_PASSWORD
+# from .secret_settings import SECRET_EMAIL_HOST_USER, SECRET_EMAIL_HOST_PASSWORD
 
 EMAIL_BACKEND = 'django.core.mail.backends.console.EmailBackend'
 EMAIL_HOST = 'smtp.gmail.com'
 EMAIL_POST = 587
 EMAIL_USE_TLS = True
-EMAIL_HOST_USER = SECRET_EMAIL_HOST_USER
+# EMAIL_HOST_USER = SECRET_EMAIL_HOST_USER
 # el. pašto adresas iš kurio siųsite
-EMAIL_HOST_PASSWORD = SECRET_EMAIL_HOST_PASSWORD
+# EMAIL_HOST_PASSWORD = SECRET_EMAIL_HOST_PASSWORD
 # slaptažodis
 
 # Quick-start development settings - unsuitable for production

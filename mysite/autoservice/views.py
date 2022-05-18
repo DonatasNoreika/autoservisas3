@@ -60,7 +60,7 @@ class UserOrderListView(LoginRequiredMixin, generic.ListView):
     paginate_by = 10
 
     def get_queryset(self):
-        return Order.objects.filter(user=self.request.user).order_by('due_date')
+        return Order.objects.filter(user=self.request.user).order_by('-due_date')
 
 
 class OrderDetailView(FormMixin, generic.DetailView):
@@ -70,12 +70,6 @@ class OrderDetailView(FormMixin, generic.DetailView):
 
     def get_success_url(self):
         return reverse('order-detail', kwargs={'pk': self.object.id})
-
-    # įtraukiame formą į kontekstą, inicijuojame pradinę 'book' reikšmę.
-    # def get_context_data(self, *args, **kwargs):
-    #     context = super(OrderDetailView, self).get_context_data(**kwargs)
-    #     context['form'] = OrderCommentForm(initial={'order': self.object})
-    #     return context
 
     # standartinis post metodo perrašymas, naudojant FormMixin, galite kopijuoti tiesiai į savo projektą.
     def post(self, request, *args, **kwargs):
